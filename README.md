@@ -1,0 +1,2 @@
+# Dibot
+A Discord BOT.
