@@ -75,7 +75,7 @@ class Bot {
 			case 'tts':
 				switch (args[1]) {
 					default:
-						channel.send(`Messages TTS pour le BOT : ${this._enabled ? ':white_check_mark: activés' : ':x: désactivés'}`);
+						channel.send(`Messages TTS pour le BOT : ${this.ttsEnabled ? ':white_check_mark: activés' : ':x: désactivés'}`);
 						break;
 					case 'on':
 					case 'enable':
