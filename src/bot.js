@@ -27,6 +27,7 @@ class Bot {
 		this._client.on('ready', () => {
 			console.log('Dibot is online');
 			this._client.user.setActivity(`!${config.command}`);
+			this._enabled ? this._client.user.setStatus('online') : this._client.user.setStatus('idle');
 		});
 		this._client.on('error', (err) => {
 			console.error(err.message);
@@ -70,12 +71,14 @@ class Bot {
 					case 'enable':
 					case 'enabled':
 						this._enabled = true;
+						this._client.user.setStatus('online');
 						channel.send('BOT activé');
 						break;
 					case 'off':
 					case 'disable':
 					case 'disabled':
 						this._enabled = false;
+						this._client.user.setStatus('idle');
 						channel.send('BOT désactivé');
 						break;
 				}
