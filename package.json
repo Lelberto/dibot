@@ -1,0 +1,28 @@
+{
+  "name": "dibot",
+  "version": "1.0.0",
+  "description": "A Discord BOT",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lelberto/dibot.git"
+  },
+  "author": "Lelberto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lelberto/dibot/issues"
+  },
+  "homepage": "https://github.com/Lelberto/dibot#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "@downstacks/downlogger": "^1.0.2",
+    "discord.js": "^11.4.2",
+    "js-yaml": "^3.12.0",
+    "lodash": "^4.17.11"
+  }
+}
