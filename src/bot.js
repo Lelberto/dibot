@@ -48,6 +48,13 @@ class Bot {
 			default:
 				channel.send(helpMsg);
 				break;
+			case 'info':
+			case 'infos':
+				channel.send(
+`BOT réalisé par Lelberto
+Code source : https://github.com/Lelberto/dibot`
+				);
+				break;
 			case 'status':
 				switch (args[1]) {
 					default:

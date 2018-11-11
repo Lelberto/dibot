@@ -16,9 +16,9 @@ const defaultConfig = {
 const helpMsg =
 `\`\`\`
 !dibot                 : Affiche ce message (wow, incroyable)
+!dibot info            : Affiche les informations à propos du BOT
 !dibot status [on|off] : Gestion du BOT
-!dibot tts [on|off]    : Gestion des messages TTS pour le BOT
-\`\`\``;
+!dibot tts [on|off]    : Gestion des messages TTS pour le BOT\`\`\``;
 
 module.exports = {
 	defaultConfig: defaultConfig,
