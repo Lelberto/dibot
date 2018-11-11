@@ -1,3 +1,4 @@
+// Dépendances
 const _ = require('lodash');
 const Discord = require('discord.js');
 const config = require('./configuration');
@@ -40,6 +41,13 @@ class Bot {
 		});
 	}
 
+	/**
+	 * Traite une commande.
+	 *
+	 * @private
+	 *
+	 * @param msg Message de la commande
+	 */
 	_processCommand(msg) {
 		const channel = msg.channel;
 		const content = msg.content;
@@ -94,6 +102,13 @@ class Bot {
 		}
 	}
 
+	/**
+	 * Traite un message.
+	 *
+	 * @private
+	 *
+	 * @param msg Message à traiter
+	 */
 	_processMessage(msg) {
 		const author = msg.author;
 		const channel = msg.channel;
@@ -121,6 +136,16 @@ class Bot {
 		}
 	}
 
+	/**
+	 * Cherche les triggers dans un message.
+	 * Cette méthode retourne une liste composé d'objets triggers ainsi que leur index dans le contenu du message.
+	 *
+	 * @private
+	 *
+	 * @param {String} content Contenu du message
+	 *
+	 * @return Liste de triggers
+	 */
 	_searchTriggers(content) {
 		const contentLowerCase = content.toLowerCase();
 		const triggers = [];
@@ -152,27 +177,53 @@ class Bot {
 		return triggers;
 	}
 
+	/**
+	 * Connecte le BOT à Discord.
+	 */
 	connect() {
 		this._client.login(this._config.token);
 	}
 
+	/**
+	 * Déconnecte le BOT de Discord.
+	 */
 	disconnect() {
 		this._client.destroy();
 		console.log('Dibot is offline');
 	}
 
+	/**
+	 * Retourne l'état du BOT.
+	 *
+	 * @return Vrai si le BOT est activé, faux autrement
+	 */
 	get enabled() {
 		return this._enabled;
 	}
 
+	/**
+	 * Définit l'état du BOT.
+	 *
+	 * @param {Boolean} Vrai pour activer le BOT, faux pour le désactiver
+	 */
 	set enabled(enabled = config.startup.enabled) {
 		this._enabled = enabled;
 	}
 
+	/**
+	 * Retourne l'état des messages TTS pour le BOT.
+	 *
+	 * @return Vrai si les messages TTS pour le BOT sont activés, faux autrement
+	 */
 	get ttsEnabled() {
 		return this._ttsEnabled;
 	}
 
+	/**
+	 * Définit l'état des messages TTS pour le BOT.
+	 *
+	 * @param {Boolean} Vrai pour activer les messages TTS pour le BOT, faux pour les désactiver
+	 */
 	set ttsEnabled(ttsEnabled = config.startup.ttsEnabled) {
 		this._ttsEnabled = ttsEnabled;
 	}
