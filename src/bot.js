@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const Discord = require('discord.js');
-const { defaultConfig, helpMsg } = require('./utils');
+const config = require('./configuration');
+const utils = require('./utils');
 
 
 
@@ -16,7 +17,7 @@ class Bot {
 	 *
 	 * @param config Configuration du BOT
 	 */
-	constructor(config = defaultConfig) {
+	constructor(config = utils.defaultConfig) {
 		this._config = config;
 		this._client = new Discord.Client();
 		this._enabled = config.startup.enabled;
@@ -46,14 +47,11 @@ class Bot {
 
 		switch (args[0]) {
 			default:
-				channel.send(helpMsg);
+				channel.send(utils.helpMsg);
 				break;
 			case 'info':
 			case 'infos':
-				channel.send(
-`BOT réalisé par Lelberto
-Code source : https://github.com/Lelberto/dibot`
-				);
+				channel.send(utils.infoMsg);
 				break;
 			case 'status':
 				switch (args[1]) {
