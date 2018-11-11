@@ -34,7 +34,7 @@ class Bot {
 			if (msg.content.startsWith(`!${this._config.command}`)) { // Si c'est une commande
 				this._processCommand(msg);
 			} else {
-				this._processMessage(msg);
+				this._enabled && this._processMessage(msg);
 			}
 		});
 	}
