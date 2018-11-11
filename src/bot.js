@@ -107,7 +107,7 @@ class Bot {
 		for (let i = 0; i < triggers.length; i++) {
 			if (i === this._config.max_trigger_count) {
 				const maxTriggerMessages = this._config.max_trigger_messages;
-				maxTriggerMessages.length > 0 && channel.send(maxTriggerMessages[_.random(0, maxTriggerMessages.length - 1)]);
+				maxTriggerMessages.length > 0 && channel.send(maxTriggerMessages[_.random(0, maxTriggerMessages.length - 1)], { tts: this._ttsEnabled });
 				break;
 			}
 
@@ -117,7 +117,7 @@ class Bot {
 				reply = reply[trigger.data.transform_function]();
 			}
 
-			reply !== '' && channel.send(reply);
+			reply !== '' && channel.send(reply, { tts: this._ttsEnabled });
 		}
 	}
 
