@@ -1,2 +1,5 @@
 # Modules NodeJS
 node_modules/
+
+# Fichier de configuration
+config/config.yml

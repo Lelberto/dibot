@@ -20,7 +20,6 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "@downstacks/downlogger": "^1.0.2",
     "discord.js": "^11.4.2",
     "js-yaml": "^3.12.0",
     "lodash": "^4.17.11"

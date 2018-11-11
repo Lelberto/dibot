@@ -1,0 +1,22 @@
+token: "yourtoken" # Token du BOT (disponbible dans le gestionnaire d'applications Discord)
+command: "dibot" # Commande du BOT (le point d'exclamation est implicite)
+startup: # Configuration au démarrage du BOT
+  enabled: true # Activation / Désactivation du BOT au démarrage
+  tts_enabled: false # Activation / Désactivation des messages TTS pour le BOT au démarrage
+triggers: # Mots déclencheurs
+  - { word: "di" }
+  - { word: "dy" }
+  - { word: "li" }
+  - { word: "ly" }
+  - { word: "cri", transform_function: "toUpperCase" }
+  - { word: "cry", transform_function: "toUpperCase" }
+max_trigger_count: 3 # Nombre maximum de triggers pour un message
+max_trigger_messages: # Messages envoyés lorsque le nombre maximum de triggers est atteint
+  - "FERMEZ-LA PUTAIN"
+  - "Vous me saoûlez"
+  - "Stop spam connard"
+  - "Je surchauffe"
+  - "J'en peux plus"
+  - "Arrêtez de jouer avec moi svp"
+  - "LA FERME"
+  - "Flemme de continuer"
