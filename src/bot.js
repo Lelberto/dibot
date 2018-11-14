@@ -115,7 +115,7 @@ class Bot {
 	_processMessage(msg) {
 		const author = msg.author;
 		const channel = msg.channel;
-		const content = msg.content;
+		const content = this._removeLinks(msg.content);
 
 		if (author === this._client.user) {
 			return;
@@ -137,6 +137,27 @@ class Bot {
 
 			reply !== '' && channel.send(reply, { tts: this._ttsEnabled });
 		}
+	}
+
+	/**
+	 * Supprime les liens contenus dans un message.
+	 *
+	 * @param content Contenu du message
+	 */
+	_removeLinks(content) {
+		let elements = content.split(' ');
+		if (elements.length === 0) {
+			elements.push(content); // Ajout du contenu entier s'il n'y a aucun espace
+		}
+
+		let i = elements.length;
+		while (i--) {
+			const element = elements[i];
+			if (element.startsWith('http')) {
+				elements.splice(i, 1);
+			}
+		}
+		return elements.join(' ');
 	}
 
 	/**
