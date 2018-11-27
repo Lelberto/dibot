@@ -37,7 +37,7 @@ const infoMsg =
 module.exports = {
 	version: version,
 	defaultConfig: defaultConfig,
-	skippedElements: skippedElements
+	skippedElements: skippedElements,
 	helpMsg: helpMsg,
 	infoMsg: infoMsg,
 }
