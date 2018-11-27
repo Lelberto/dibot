@@ -1,6 +1,6 @@
 {
   "name": "dibot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Discord BOT",
   "main": "src/app.js",
   "scripts": {

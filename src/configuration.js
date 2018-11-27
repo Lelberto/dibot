@@ -18,13 +18,27 @@ function load(path, callback) {
 	}
 }
 
-function apply(config, defaultConfig) {
+/**
+ * Applique une configuration avec une configuration par défaut.
+ * Cette fonction valide une configuration en ajoutant les éléments par défaut s'ils n'existent pas.
+ *
+ * @param config Configuration à appliquer
+ * @param defaultConfig Configuration par défaut
+ * @param skippedElements {Array} Éléments de configuration à éviter lors de l'applications
+ */
+function apply(config, defaultConfig, skippedElements = []) {
 	for (const key in defaultConfig) {
-		if (config[key] === undefined) {
-			console.log('Applying default : ' + key);
+		if (skippedElements.includes(key)) {
+			continue;
+		}
+		const defaultConfigKey = defaultConfig[key];
+		const configKey = config[key];
+		if (configKey instanceof Object) {
+			apply(configKey, defaultConfigKey); // Ré-application de la section de configuration
+		} else if (configKey === undefined) {
+			config[key] = defaultConfigKey; // Application par défaut
 		}
 	}
-	console.log(config);
 }
 
 module.exports = {
