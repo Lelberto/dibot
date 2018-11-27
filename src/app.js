@@ -6,7 +6,7 @@ const Bot = require('./bot');
 
 
 // Chargement de la configuration
-config.load('config/config-test.yml', (err, result) => {
+config.load('config/config.yml', (err, result) => {
 	if (err) {
 		console.error(err);
 		return;
