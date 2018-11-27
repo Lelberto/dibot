@@ -1,3 +1,6 @@
+/** Version */
+const version = '1.0.2';
+
 /** Configuration par défaut */
 const defaultConfig = {
 	token: 'invalid',
@@ -12,7 +15,10 @@ const defaultConfig = {
 	],
 	max_trigger_count: 3,
 	max_trigger_messages: []
-}
+};
+
+/** Éléments à passer lors de l'application de la configuration */
+const skippedElements = ['triggers', 'max_trigger_messages'];
 
 /** Message d'aide */
 const helpMsg =
@@ -24,13 +30,14 @@ const helpMsg =
 
 /** Message d'informations */
 const infoMsg =
-`Dibot - Made with :heart: by Lelberto
-> Twitter : https://twitter.com/Lelberto
+`Dibot (version ${version}) - Made with :heart: by Lelberto
 > Source code : https://github.com/Lelberto/dibot
 `;
 
 module.exports = {
+	version: version,
 	defaultConfig: defaultConfig,
+	skippedElements: skippedElements
 	helpMsg: helpMsg,
-	infoMsg: infoMsg
+	infoMsg: infoMsg,
 }
