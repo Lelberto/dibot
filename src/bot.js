@@ -86,7 +86,7 @@ class Bot {
 			case 'tts':
 				switch (args[1]) {
 					default:
-						channel.send(`Messages TTS pour le BOT sur ce serveur : ${!this._disabled.tts.has(guild.id) ? ':white_check_mark: activés' : ':x: désactivés'}`);
+						channel.send(`Messages TTS pour le BOT sur ce serveur : ${this._disabled.tts.has(guild.id) ? ':white_check_mark: activés' : ':x: désactivés'}`);
 						break;
 					case 'on':
 					case 'enable':
