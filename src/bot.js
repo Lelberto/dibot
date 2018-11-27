@@ -23,6 +23,7 @@ class Bot {
 		this._client = new Discord.Client();
 		this._enabled = config.startup.enabled;
 		this._ttsEnabled = config.startup.tts_enabled;
+		this._disabledGuildIds = [];
 
 		this._client.on('ready', () => {
 			console.log('Dibot is online');
