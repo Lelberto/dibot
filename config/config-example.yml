@@ -1,8 +1,5 @@
 token: "yourtoken" # Token du BOT (disponbible dans le gestionnaire d'applications Discord)
 command: "dibot" # Commande du BOT (le point d'exclamation est implicite)
-startup: # Configuration au démarrage du BOT
-  enabled: true # Activation / Désactivation du BOT au démarrage
-  tts_enabled: false # Activation / Désactivation des messages TTS pour le BOT au démarrage
 triggers: # Mots déclencheurs
   - { word: "di" }
   - { word: "dy" }

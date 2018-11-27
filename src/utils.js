@@ -5,10 +5,6 @@ const version = '1.1';
 const defaultConfig = {
 	token: 'invalid',
 	command: 'dibot',
-	startup: {
-		enabled: true,
-		tts_enabled: false
-	},
 	triggers: [
 		{ word: 'di' },
 		{ word: 'cri', transform_function: 'toUpperCase' }
