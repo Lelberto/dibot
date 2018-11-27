@@ -21,14 +21,16 @@ class Bot {
 	constructor(config = utils.defaultConfig) {
 		this._config = config;
 		this._client = new Discord.Client();
-		this._enabled = config.startup.enabled;
-		this._ttsEnabled = config.startup.tts_enabled;
-		this._disabledGuildIds = [];
+		this._enabled = true;
+		this._ttsEnabled = false;
+		this._disabled = {
+			status: new Set(),
+			tts: new Set()
+		};
 
 		this._client.on('ready', () => {
 			console.log('Dibot is online');
 			this._client.user.setActivity(`!${config.command}`);
-			this._enabled ? this._client.user.setStatus('online') : this._client.user.setStatus('idle');
 		});
 		this._client.on('error', (err) => {
 			console.error(err.message);
@@ -38,7 +40,7 @@ class Bot {
 			if (msg.content.startsWith(`!${this._config.command}`)) { // Si c'est une commande
 				this._processCommand(msg);
 			} else {
-				this._enabled && this._processMessage(msg);
+				!this._disabled.status.has(msg.guild.id) && this._processMessage(msg);
 			}
 		});
 	}
@@ -51,6 +53,7 @@ class Bot {
 	 * @param msg Message de la commande
 	 */
 	_processCommand(msg) {
+		const guild = msg.guild;
 		const channel = msg.channel;
 		const content = msg.content;
 		const args = content.toLowerCase().substring(this._config.command.length + 2, content.length).split(' ');
@@ -66,20 +69,18 @@ class Bot {
 			case 'status':
 				switch (args[1]) {
 					default:
-						channel.send(`État du BOT : ${this._enabled ? ':white_check_mark: activé' : ':x: désactivé'}`);
+						channel.send(`État du BOT : ${!this._disabled.status.has(guild.id) ? ':white_check_mark: activé' : ':x: désactivé'}`);
 						break;
 					case 'on':
 					case 'enable':
 					case 'enabled':
-						this._enabled = true;
-						this._client.user.setStatus('online');
+						this._disabled.status.delete(guild.id);
 						channel.send('BOT activé');
 						break;
 					case 'off':
 					case 'disable':
 					case 'disabled':
-						this._enabled = false;
-						this._client.user.setStatus('idle');
+						this._disabled.status.add(guild.id);
 						channel.send('BOT désactivé');
 						break;
 				}
@@ -87,18 +88,18 @@ class Bot {
 			case 'tts':
 				switch (args[1]) {
 					default:
-						channel.send(`Messages TTS pour le BOT : ${this.ttsEnabled ? ':white_check_mark: activés' : ':x: désactivés'}`);
+						channel.send(`Messages TTS pour le BOT : ${!this._disabled.tts.has(guild.id) ? ':white_check_mark: activés' : ':x: désactivés'}`);
 						break;
 					case 'on':
 					case 'enable':
 					case 'enabled':
-						this._ttsEnabled = true;
+						this._disabled.tts.delete(guild.id);
 						channel.send('Messages TTS pour le BOT activés');
 						break;
 					case 'off':
 					case 'disable':
 					case 'disabled':
-						this._ttsEnabled = false;
+						this._disabled.status.add(guild.id);
 						channel.send('Messages TTS pour le BOT désactivés');
 						break;
 				}
@@ -114,6 +115,7 @@ class Bot {
 	 * @param msg Message à traiter
 	 */
 	_processMessage(msg) {
+		const guild = msg.guild;
 		const author = msg.author;
 		const channel = msg.channel;
 		const content = this._removeLinks(msg.content);
@@ -126,7 +128,7 @@ class Bot {
 		for (let i = 0; i < triggers.length; i++) {
 			if (i === this._config.max_trigger_count) {
 				const maxTriggerMessages = this._config.max_trigger_messages;
-				maxTriggerMessages.length > 0 && channel.send(maxTriggerMessages[_.random(0, maxTriggerMessages.length - 1)], { tts: this._ttsEnabled });
+				maxTriggerMessages.length > 0 && channel.send(maxTriggerMessages[_.random(0, maxTriggerMessages.length - 1)], { tts: !this._disabled.tts.has(guild.id) });
 				break;
 			}
 
@@ -136,7 +138,7 @@ class Bot {
 				reply = reply[trigger.data.transform_function]();
 			}
 
-			reply !== '' && channel.send(reply, { tts: this._ttsEnabled });
+			reply !== '' && channel.send(reply, { tts: !this._disabled.tts.has(guild.id) });
 		}
 	}
 
