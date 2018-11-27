@@ -12,12 +12,22 @@ const yaml = require('js-yaml');
  */
 function load(path, callback) {
 	try {
-		callback && callback(null, yaml.safeLoad(fs.readFileSync('config/config.yml'), 'utf-8'));
+		callback && callback(null, yaml.safeLoad(fs.readFileSync(path), 'utf-8'));
 	} catch (err) {
 		callback && callback(err);
 	}
 }
 
+function apply(config, defaultConfig) {
+	for (const key in defaultConfig) {
+		if (config[key] === undefined) {
+			console.log('Applying default : ' + key);
+		}
+	}
+	console.log(config);
+}
+
 module.exports = {
-	load: load
+	load: load,
+	apply: apply
 }
